@@ -9,6 +9,10 @@ import java.util.List;
  */
 public class Hub 
 {
+  public static final String YAML = "YAML";
+  public static final String XML = "XML";
+  public static final String JSON = "JSON";
+  
   private List<Leaf> _tree = null;
   private List<Entry> _entries = null;
   
@@ -180,6 +184,30 @@ public class Hub
    * @return the contents of the Hub exported in the appropriate format
    */
   public String export( String mode )
+  {
+    // Check the mode is a correct acceptable one
+    if( !( mode.equals( Hub.JSON)) &&
+        !( mode.equals( Hub.XML)) &&
+        !( mode.equals( Hub.YAML))) return null;
+    
+    if( mode.equals( Hub.JSON)) return this.exportJSON();
+    if( mode.equals( Hub.XML)) return this.exportXML();
+    if( mode.equals( Hub.YAML)) return this.exportYAML();
+    
+    return null;
+  }
+  
+  private String exportJSON()
+  {
+    return null;
+  }
+  
+  private String exportXML()
+  {
+    return null;
+  }
+  
+  private String exportYAML()
   {
     return null;
   }
