@@ -3,6 +3,7 @@ package org.uth.hub.currency;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Entry class for Hub components. 
@@ -13,11 +14,12 @@ public class Entry
   private long _created = 0; // UTC time of creation
   private long _modified = 0; // UTC time of modification
   private URL _url = null; // URL
+  private String _uuid = null; // Unique ID
   private String _name = null; // Name of entry
   private String _text = null; // Additional text of entry (for searching)
   private List<String> _tags = null; // Tags of entry (for searching)
   private List<String> _categories = null; // Categories of entry (for searching)
-  private String _location = null; // Location of entry in hub
+  private String _location = null; // Location of entry in hub - uuid of parent leaf
   
   public Entry( URL url, String name, String text, String location, long creation )
   {
@@ -31,6 +33,8 @@ public class Entry
     
     _tags = new ArrayList<>();
     _categories = new ArrayList<>();
+    
+    _uuid = Entry.getUUID();
   }
   
   public String getName() { return _name; }
@@ -41,10 +45,21 @@ public class Entry
   public URL getURL() { return _url; }
   public List<String> getTags() { return _tags; }
   public List<String> getCategories() { return _categories; }
+  public String getID() { return _uuid; }
+  
+  private static String getUUID()
+  {
+    return UUID.randomUUID().toString();
+  }  
   
   public void setModified( long modified )
   {
     _modified = modified;
+  }
+  
+  public void setModified()
+  {
+    _modified = System.currentTimeMillis();
   }
   
   public boolean hasTag( String tag )

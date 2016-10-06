@@ -114,6 +114,24 @@ public class Hub
     return null;
   }
   
+  /**
+   * Get Leaf by ID.
+   * @param ID ID of Leaf to return
+   * @return Leaf if found, null if not
+   */
+  public Leaf getLeafByID( String ID )
+  {
+    for( Leaf leaf : _tree )
+    {
+      if( leaf.getID().equals(ID))
+      {
+        return leaf;
+      }
+    }
+    
+    return null;
+  }
+  
   public List<Entry> getEntriesByLeaf( Leaf leaf )
   {
     return this.getEntriesByLeaf( leaf.getDescription().getName());
