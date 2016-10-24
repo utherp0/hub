@@ -84,12 +84,22 @@ public class Hub
   {
     List<String> moved = new LinkedList<>();
     
+    // Fix orphaned entries
     for( Entry entry : _entries )
     {
       if( this.getLeafByName( entry.getLocation()) == null )
       {
         entry.setLocation("Pool");
         moved.add(entry.getName());
+      }
+    }
+    
+    // Fix orphaned leaves
+    for( Leaf leaf : _tree )
+    {
+      if( this.getLeafByID( leaf.getParentID()) == null )
+      {
+        leaf.updateParent( this.getLeafByName("Root"));
       }
     }
     
