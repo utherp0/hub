@@ -142,6 +142,15 @@ public class Hub
     return null;
   }
   
+  /**
+   * Get all the leaves.
+   * @return the current tree structure
+   */
+  public List<Leaf> getAllLeaves()
+  {
+    return _tree;
+  }
+  
   public List<Entry> getEntriesByLeaf( Leaf leaf )
   {
     return this.getEntriesByLeaf( leaf.getDescription().getName());

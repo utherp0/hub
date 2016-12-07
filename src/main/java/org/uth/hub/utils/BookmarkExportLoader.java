@@ -1,11 +1,15 @@
 package org.uth.hub.utils;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.uth.hub.currency.Entry;
 import org.uth.hub.exceptions.LoaderException;
 
 /**
@@ -21,7 +25,7 @@ public class BookmarkExportLoader
   }
   
   /**
-   * Load meythod. Uses the JSoup library to handle broken HTML and get the links.
+   * Load method. Uses the JSoup library to handle broken HTML and get the links.
    * @param htmlFileName file to extract links from
    * @throws LoaderException if the file cannot be loaded
    */
@@ -53,5 +57,31 @@ public class BookmarkExportLoader
   public Map<String,String> getLinks()
   {
     return _links;
+  }
+  
+  public List<Entry> getLinksAsEntries( String location )
+  {
+    List<Entry> working = new ArrayList<>();
+    
+    if( _links == null ) return null;
+    
+    // Convert the links into entries and return them
+    for( String href : _links.keySet())
+    {
+      String text = _links.get(href);
+      
+      try
+      {
+        Entry entry = new Entry( new URL( href ), text, "Imported Bookmark", location, System.currentTimeMillis());
+        
+        working.add(entry);
+      }
+      catch( Exception exc )
+      {
+        System.out.println( "Failed to create entry due to malformed URL " + href );
+      }        
+    }
+    
+    return working;
   }
 }

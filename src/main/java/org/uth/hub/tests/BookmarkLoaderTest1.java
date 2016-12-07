@@ -2,6 +2,7 @@ package org.uth.hub.tests;
 
 import java.util.Map;
 import org.uth.hub.utils.BookmarkExportLoader;
+import org.uth.hub.utils.SortUtils;
 
 /**
  * Test of the Bookmark Loader.
@@ -33,6 +34,16 @@ public class BookmarkLoaderTest1
       long end = System.currentTimeMillis();
       
       System.out.println( "Found " + links.size() + " links in " + ( end - start ) + "ms.");
+      
+      // Sort on href
+      String[] array = links.keySet().toArray(new String[0]);
+      String[] sortedKeys = SortUtils.parallelSort(array, false);
+      
+      for( String key : sortedKeys )
+      {
+        String href = links.get(key);
+        System.out.println( "  " + key + " " + href );
+      }
     }
     catch( Exception exc )
     {
