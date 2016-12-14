@@ -30,6 +30,15 @@ public class Hub
   }
   
   /**
+   * Entries accessor for the search components.
+   * @return the current list of entries in the Hub
+   */
+  public List<Entry> getAllEntries()
+  {
+    return _entries;
+  }
+  
+  /**
    * Add Leaf Method. Every Leaf must be unique by name.
    * @param leaf leaf to add to tree
    * @return false if the tree already has a named leaf, true otherwise

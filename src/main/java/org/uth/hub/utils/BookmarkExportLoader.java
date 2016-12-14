@@ -72,7 +72,7 @@ public class BookmarkExportLoader
       
       try
       {
-        Entry entry = new Entry( new URL( href ), text, "Imported Bookmark", location, System.currentTimeMillis());
+        Entry entry = new Entry( new URL( href ), text, "Imported Bookmark " + location, null, System.currentTimeMillis());
         
         working.add(entry);
       }
