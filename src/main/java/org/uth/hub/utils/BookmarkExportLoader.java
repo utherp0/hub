@@ -24,20 +24,26 @@ public class BookmarkExportLoader
   {
   }
   
-  /**
-   * Load method. Uses the JSoup library to handle broken HTML and get the links.
-   * @param htmlFileName file to extract links from
-   * @throws LoaderException if the file cannot be loaded
-   */
-  public void load( String htmlFileName ) throws LoaderException
+  public void loadFile( String htmlFileName ) throws LoaderException
   {
-    _links = new HashMap<>();
     String contents = FileUtils.loadString(htmlFileName);
     
     if( contents == null )
     {
       throw new LoaderException( "Unable to load file contents, check " + htmlFileName );
     }
+    
+    this.load(contents);
+  }
+  
+  /**
+   * Load method. Uses the JSoup library to handle broken HTML and get the links.
+   * @param contents data to extract links from
+   * @throws LoaderException if the file cannot be loaded
+   */
+  public void load( String contents ) throws LoaderException
+  {
+    _links = new HashMap<>();
     
     Document document = Jsoup.parse(contents);
       

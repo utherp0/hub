@@ -29,7 +29,7 @@ public class BookmarkLoaderTest1
     
     try
     {
-      loader.load(targetFile);    
+      loader.loadFile(targetFile);    
       Map<String,String> links = loader.getLinks();
       long end = System.currentTimeMillis();
       
