@@ -35,7 +35,7 @@ public class FastFindTest1
     {
       long start = System.currentTimeMillis();
       
-      loader.load(fileLocation);
+      loader.loadFile(fileLocation);
       
       int linkCount = 0;
       for( Entry entry : loader.getLinksAsEntries(fileLocation))

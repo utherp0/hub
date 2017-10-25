@@ -4,6 +4,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.LongPoint;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 
 /**
  * Entry class for Hub components. 
@@ -109,5 +114,33 @@ public class Entry
     _categories.remove(category);
     
     return true;
-  }  
+  }
+  
+  /**
+   * Convert the entry contents to a searchable Lucene document
+   * @return an indexable Lucene document containing the entry
+   */
+  public Document toDocument()
+  {
+    Document workingDocument = new Document();
+    
+    // Add the dates
+    workingDocument.add( new LongPoint("created", _created));
+    workingDocument.add( new LongPoint("modified", _modified));
+    
+    // Add the URL as a path
+    Field pathField = new StringField("url", _url.toString(), Field.Store.YES);
+    workingDocument.add(pathField);
+    
+    // Add the uuid for reference
+    workingDocument.add( new TextField( "uuid", _uuid, Field.Store.YES));
+    
+    // Add the name lower-cased for search assistance
+    workingDocument.add( new TextField( "name", _name.toLowerCase(), Field.Store.YES));
+    
+    // Add the description lower-cased for search assistance
+    workingDocument.add( new TextField( "description", _text.toLowerCase(), Field.Store.YES));
+    
+    return workingDocument;
+  }
 }
