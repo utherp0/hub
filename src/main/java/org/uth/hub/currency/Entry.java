@@ -115,6 +115,18 @@ public class Entry
     
     return true;
   }
+
+  public String toString()
+  {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append( "NAME: " + _name + "\n" );
+    builder.append( "  TEXT: " + _text + "\n" );
+    builder.append( "  URL:" + _url + "\n" );
+    builder.append( "  LOC: " + _location + "\n" );
+
+    return builder.toString();
+  }
   
   /**
    * Convert the entry contents to a searchable Lucene document

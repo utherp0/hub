@@ -47,7 +47,9 @@ public class HubSearcher
     // Obtain the index location from an ENV variable
     Map<String,String> envs = System.getenv();
     
-    _indexLocation = envs.get("HUBINDEX");    
+    _indexLocation = envs.get("HUBINDEX");  
+    
+    System.out.println( "HUBINDEX from env: " + _indexLocation );
   }
   
   public void overrideMaxDocs( int maxDocs )
@@ -55,7 +57,7 @@ public class HubSearcher
     _maxDocs = maxDocs;
   }
   
-  private void initialiseSearcher() throws HubSearchException
+  public void initialiseSearcher() throws HubSearchException
   {
     // Initial checks on target index location
     if( _indexLocation == null ) throw new HubSearchException( "Index Location is null.");
