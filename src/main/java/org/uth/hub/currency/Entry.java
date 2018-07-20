@@ -151,7 +151,14 @@ public class Entry
     workingDocument.add( new TextField( "name", _name.toLowerCase(), Field.Store.YES));
     
     // Add the description lower-cased for search assistance
-    workingDocument.add( new TextField( "description", _text.toLowerCase(), Field.Store.YES));
+    if( _text == null )
+    {
+      workingDocument.add( new TextField( "description", new String( "NONE" ), Field.Store.YES));
+    }
+    else
+    {
+      workingDocument.add( new TextField( "description", _text.toLowerCase(), Field.Store.YES));
+    }
     
     return workingDocument;
   }

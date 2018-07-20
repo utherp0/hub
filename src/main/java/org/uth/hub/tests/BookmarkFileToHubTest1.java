@@ -59,11 +59,6 @@ public class BookmarkFileToHubTest1
 
       System.out.println( "Outputting Hub contents....");
 
-      for( Entry entry : entries )
-      {
-        System.out.println( entry.toString() );
-      }
-
       // Creating the Lucene Index
       HubIndexer indexer = new HubIndexer( index );
       indexer.index(hub, true);
@@ -73,7 +68,7 @@ public class BookmarkFileToHubTest1
       searcher.initialiseSearcher();
 
       start = System.currentTimeMillis();
-      TopDocs results = searcher.search( HubSearcher.URL, term.toLowerCase());
+      TopDocs results = searcher.search( HubSearcher.NAME, term.toLowerCase());
       end = System.currentTimeMillis();
       
       int totalHits = Math.toIntExact(results.totalHits);
@@ -83,17 +78,22 @@ public class BookmarkFileToHubTest1
       System.out.println( "Search found " + totalHits + " hits.");
       
       ScoreDoc[] hits = results.scoreDocs;
-      
-      for( int hitsLoop = 0; hitsLoop < totalHits; hitsLoop++ )
+
+      for( int loop = 0; loop < hits.length; loop++ )
       {
-        Document doc = searcher.getDoc(hitsLoop);
-        
-        System.out.println( "-  " + doc.getField(HubSearcher.URL).stringValue());
+        System.out.println( hits[loop].doc + ":" + hits[loop].score );
+
+        Document doc = searcher.getDoc( hits[loop].doc);
+        System.out.println( "Result (" + loop + ")");
+        System.out.println( "  " + doc.getField(HubSearcher.URL).stringValue());
+        System.out.println( "  - " + doc.getField(HubSearcher.NAME).stringValue());
       }
     }
     catch( Exception exc )
     {
       System.out.println( "Test failed due to " + exc.toString());
+
+      exc.printStackTrace();
     }
   }
 }

@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+
+import javax.swing.DebugGraphics;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -69,6 +72,10 @@ public class HubSearcher
     try
     {
       _reader = DirectoryReader.open(FSDirectory.open(hubDir));
+
+      // Debug
+      System.out.println( "Count of docs in index: " + _reader.numDocs());
+
       _searcher = new IndexSearcher(_reader);
       _analyzer = new StandardAnalyzer();
     }
@@ -125,6 +132,7 @@ public class HubSearcher
   {
     try
     {
+    
       return _searcher.doc(docNumber);
     }
     catch( IOException exc )
